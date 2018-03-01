@@ -33,20 +33,6 @@ task noPreserveSync {
   }
 }
 
-//Uncomment this task to observe failure on configuration phase
-/*
-task inlineSyncTask {
-  dependsOn "resetFiles"
-  project.sync {
-    from "input/path/file"
-    into "output/path/"
-    preserve {
-      include "some-file"
-    }
-  }
-}*/
-
-
 // reset directory state to demonstrate functionality of sync tasks
 task resetFiles {
   project.copy {

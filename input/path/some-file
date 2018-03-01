@@ -1,0 +1,1 @@
+This file should be present in the output/path after syncing with preserve { include "some-file" }
