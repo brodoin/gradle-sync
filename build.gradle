@@ -1,0 +1,60 @@
+//This task functions as expected
+task mySyncTask(type: Sync) {
+  dependsOn "resetFiles"
+  from "input/path/file"
+  into "output/path/"
+  preserve {
+    include "some-file"
+  }
+}
+
+//This task fails on execution phase
+task doLastSyncTask {
+  dependsOn "resetFiles"
+  doLast {
+    project.sync {
+      from "input/path/file"
+      into "output/path"
+      preserve {
+        include "some-file"
+      }
+    }
+  }
+}
+
+//This task succeeds but isn't configured to preserve any files
+task noPreserveSync {
+  dependsOn "resetFiles"
+  doLast {
+    project.sync {
+      from "input/path/file"
+      into "output/path"
+    }
+  }
+}
+
+//Uncomment this task to observe failure on configuration phase
+/*
+task inlineSyncTask {
+  dependsOn "resetFiles"
+  project.sync {
+    from "input/path/file"
+    into "output/path/"
+    preserve {
+      include "some-file"
+    }
+  }
+}*/
+
+
+task resetFiles {
+  project.copy {
+    from "input/path/some-file"
+    from "input/path/some-other-file"
+    into "output/path/"
+  }
+
+  project.delete {
+    delete "output/path/file"
+  }
+}
