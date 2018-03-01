@@ -47,6 +47,7 @@ task inlineSyncTask {
 }*/
 
 
+// reset directory state to demonstrate functionality of sync tasks
 task resetFiles {
   project.copy {
     from "input/path/some-file"
